@@ -1,0 +1,808 @@
+:root {
+  --bg-main: #182825;
+  --bg-app: #7b5e7b;
+  --bg-card: rgba(151, 234, 210, 0.2);
+  --bg-card-solid: #dbd2e0;
+  --bg-card-hover: rgba(114, 134, 160, 0.4);
+  --border-glass: rgba(151, 234, 210, 0.25);
+  --border-focus: #97ead2;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #f1e5f1;
+  --text-muted: #d2bdd2;
+  
+  /* Cores de Humores / Acentos */
+  --mood-happy: #fde047;
+  --mood-calm: #a5f3fc;
+  --mood-productive: #c084fc;
+  --mood-anxious: #fda4af;
+  --mood-tired: #94a3b8;
+  --mood-sad: #475569;
+  
+  --happy-gradient: linear-gradient(135deg, #fde047, #fda4af);
+  --calm-gradient: linear-gradient(135deg, #a5f3fc, #93c5fd);
+  --productive-gradient: linear-gradient(135deg, #c084fc, #97ead2);
+  --anxious-gradient: linear-gradient(135deg, #fda4af, #f43f5e);
+  --tired-gradient: linear-gradient(135deg, #cbd5e1, #7b5e7b);
+  --sad-gradient: linear-gradient(135deg, #64748b, #334155);
+  
+  --success: #97ead2;
+  --danger: #f43f5e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(circle at top left, #1e1b4b 0%, #060813 60%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Container do App - Simulação de Celular no Desktop */
+.phone-wrapper {
+  position: relative;
+  width: 412px;
+  height: 846px;
+  background: #000;
+  border-radius: 48px;
+  padding: 12px;
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8),
+              0 0 0 1px rgba(255, 255, 255, 0.1),
+              inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Câmera Frontal (Notch) */
+.phone-notch {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 30px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-camera {
+  width: 10px;
+  height: 10px;
+  background: #111827;
+  border-radius: 50%;
+  border: 1px solid #1f2937;
+}
+
+/* Tela Principal do App */
+.app-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-app);
+  border-radius: 38px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra de Status (Simulada) */
+.status-bar {
+  height: 48px;
+  padding: 18px 24px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  z-index: 90;
+  background: transparent;
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Área de Conteúdo Principal */
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 100px 20px; /* espaço ampliado para o menu flutuante */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.app-content::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Barra de Navegação Inferior (Bottom Nav Bar) - Estilo Flutuante Premium */
+.bottom-nav {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  height: 66px;
+  background: rgba(0, 0, 0, 0.15); /* translúcido escuro sutil */
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 80;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 6px 12px;
+  border-radius: 16px;
+}
+
+.nav-item.active {
+  color: var(--text-primary);
+}
+
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.nav-item.active svg {
+  color: var(--mood-productive);
+  transform: translateY(-2px);
+}
+
+/* Estilos de Cartão (Cards) - Glassmorphism */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  padding: 20px;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.glass-card:active {
+  transform: scale(0.99);
+}
+
+/* Tipografia */
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Grid de Humores no Dashboard */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.mood-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  padding: 14px 10px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mood-btn:hover, .mood-btn:active {
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.mood-emoji {
+  font-size: 24px;
+}
+
+.mood-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Estilização para cada humor ativo */
+.mood-btn.happy { border-color: var(--mood-happy); }
+.mood-btn.calm { border-color: var(--mood-calm); }
+.mood-btn.productive { border-color: var(--mood-productive); }
+.mood-btn.anxious { border-color: var(--mood-anxious); }
+.mood-btn.tired { border-color: var(--mood-tired); }
+.mood-btn.sad { border-color: var(--mood-sad); }
+
+/* Anel de Progresso Circular */
+.progress-ring-container {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.progress-ring-text {
+  position: absolute;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Lista de Hábitos */
+.habits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.habit-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  transition: all 0.3s ease;
+}
+
+.habit-card.completed {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.habit-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.habit-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.habit-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.habit-name {
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.habit-card.completed .habit-name {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.habit-streak {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.habit-streak svg {
+  width: 12px;
+  height: 12px;
+  color: #ff9f1c;
+}
+
+.habit-check-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border-glass);
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: transparent;
+}
+
+.habit-card.completed .habit-check-btn {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Timeline do Diário */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.timeline-card {
+  position: relative;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.timeline-card.happy::before { background: var(--mood-happy); }
+.timeline-card.calm::before { background: var(--mood-calm); }
+.timeline-card.productive::before { background: var(--mood-productive); }
+.timeline-card.anxious::before { background: var(--mood-anxious); }
+.timeline-card.tired::before { background: var(--mood-tired); }
+.timeline-card.sad::before { background: var(--mood-sad); }
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timeline-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.timeline-mood-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.timeline-mood-tag.happy { background: rgba(245, 158, 11, 0.15); color: var(--mood-happy); }
+.timeline-mood-tag.calm { background: rgba(6, 182, 212, 0.15); color: var(--mood-calm); }
+.timeline-mood-tag.productive { background: rgba(139, 92, 246, 0.15); color: var(--mood-productive); }
+.timeline-mood-tag.anxious { background: rgba(236, 72, 153, 0.15); color: var(--mood-anxious); }
+.timeline-mood-tag.tired { background: rgba(59, 130, 246, 0.15); color: var(--mood-tired); }
+.timeline-mood-tag.sad { background: rgba(100, 116, 139, 0.15); color: var(--mood-sad); }
+
+.timeline-content {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+}
+
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 11px;
+  color: var(--mood-productive);
+  background: rgba(139, 92, 246, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* Floating Action Button (FAB) */
+.fab {
+  position: absolute;
+  bottom: 96px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: var(--happy-gradient);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4);
+  z-index: 50;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab:hover, .fab:active {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.fab svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Bottom Sheet Modal */
+.bottom-sheet-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bottom-sheet {
+  width: 100%;
+  background: var(--bg-card-solid);
+  border-top: 1px solid var(--border-glass);
+  border-radius: 32px 32px 0 0;
+  padding: 24px;
+  max-height: 85%;
+  overflow-y: auto;
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Overrides para garantir contraste no fundo claro do modal */
+  --text-primary: #1e1b4b;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  color: var(--text-primary);
+}
+
+.bottom-sheet label {
+  color: var(--text-secondary) !important;
+}
+
+.bottom-sheet .form-input,
+.bottom-sheet .form-textarea,
+.bottom-sheet .form-select {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--text-primary);
+}
+
+.bottom-sheet .form-input:focus,
+.bottom-sheet .form-textarea:focus,
+.bottom-sheet .form-select:focus {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: var(--border-focus);
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.bottom-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: rgba(0,0,0,0.05);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Formulários */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.form-input, .form-textarea, .form-select {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--accent-purple);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 0 3px var(--border-focus);
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: none;
+}
+
+/* Seletores Coloridos de Adicionar Hábito */
+.color-picker {
+  display: flex;
+  gap: 12px;
+}
+
+.color-option {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.color-option.selected {
+  border-color: #fff;
+  transform: scale(1.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Seletor de Datas nos Hábitos */
+.date-selector {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.date-dot-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px 4px;
+  width: 44px;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+
+.date-dot-btn.active {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+}
+
+.date-dot-day {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.date-dot-num {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Estatísticas */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+/* Gráfico de Humor */
+.chart-container {
+  height: 150px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+.chart-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.chart-bar-bg {
+  width: 8px;
+  height: 100px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 4px;
+  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chart-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Correlação de Hábitos */
+.correlation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.correlation-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-glass);
+}
+
+.correlation-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Responsividade Geral */
+@media (max-width: 480px) {
+  body {
+    background: var(--bg-app);
+  }
+  
+  .phone-wrapper {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+  }
+  
+  .app-screen {
+    border-radius: 0;
+  }
+  
+  .phone-notch {
+    display: none; /* remove notch no celular real */
+  }
+  
+  .status-bar {
+    display: none; /* remove barra de status ficticia no celular */
+  }
+  
+  .app-content {
+    padding-top: calc(16px + env(safe-area-inset-top)); /* afasta o conteudo do notch/status bar nativo */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom)); /* evita que itens sumam sob o menu flutuante */
+  }
+  
+  .bottom-nav {
+    bottom: calc(16px + env(safe-area-inset-bottom)); /* flutua acima da barra de gestos do iOS/Android */
+    left: 16px;
+    right: 16px;
+    height: 66px;
+    padding-bottom: 0;
+  }
+}
