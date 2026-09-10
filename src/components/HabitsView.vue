@@ -1,7 +1,9 @@
 <script setup>
 import { computed } from 'vue'
-import { store } from '../store'
+import { store, getTodayString } from '../store'
 import LucideIcon from './LucideIcon.vue'
+
+const todayStr = getTodayString(0)
 
 // Generate list of the last 7 days
 const weekDays = computed(() => {
@@ -32,11 +34,7 @@ const currentRate = computed(() => {
 })
 
 const isSelectedDateToday = computed(() => {
-  const d = new Date()
-  const yyyy = d.getFullYear()
-  const mm = String(d.getMonth() + 1).padStart(2, '0')
-  const dd = String(d.getDate()).padStart(2, '0')
-  return store.selectedDate === `${yyyy}-${mm}-${dd}`
+  return store.selectedDate === todayStr
 })
 
 const formatSelectedDateText = computed(() => {
@@ -50,10 +48,20 @@ const formatSelectedDateText = computed(() => {
   <div class="habits-view">
     <!-- Header -->
     <header class="habits-header" style="display: flex; justify-content: space-between; align-items: center;">
-      <h1 class="text-gradient">Seus Hábitos</h1>
-      <button class="fab" style="position: static; width: 40px; height: 40px; border-radius: 12px; box-shadow: none;" @click="store.showAddHabitModal = true">
-        <LucideIcon name="Plus" size="20" />
-      </button>
+      <div>
+        <h1 class="text-gradient">Seus Hábitos</h1>
+        <p class="text-secondary" style="font-size: 11px; margin-top: 2px;">
+          Metas diárias quantificadas
+        </p>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="fab" style="position: static; width: 40px; height: 40px; border-radius: 12px; box-shadow: none; background: var(--accent-purple);" title="Modo Jogo Tinder" @click="store.setTab('game')">
+          <LucideIcon name="Sparkles" size="20" />
+        </button>
+        <button class="fab" style="position: static; width: 40px; height: 40px; border-radius: 12px; box-shadow: none;" title="Novo Hábito" @click="store.showAddHabitModal = true">
+          <LucideIcon name="Plus" size="20" />
+        </button>
+      </div>
     </header>
 
     <!-- Date selector -->
@@ -82,23 +90,32 @@ const formatSelectedDateText = computed(() => {
     </div>
 
     <!-- Habits List -->
-    <div class="habits-section" style="margin-top: 8px;">
+    <div class="habits-section" style="margin-top: 12px;">
       <div v-if="store.habits.length > 0" class="habits-list">
         <div v-for="habit in store.habits" :key="habit.id" 
              :class="['habit-card', { completed: habit.history.includes(store.selectedDate) }]">
           <div class="habit-info">
-            <div class="habit-icon-wrapper" :style="{ backgroundColor: habit.color }">
-              <LucideIcon :name="habit.icon" size="20" />
+            <div class="habit-icon-wrapper" :style="{ backgroundColor: habit.color || 'var(--accent-purple)' }">
+              <LucideIcon :name="habit.icon || 'Sparkles'" size="20" />
             </div>
             <div class="habit-details">
-              <span class="habit-name">{{ habit.name }}</span>
-              <p class="text-secondary" style="font-size: 12px; margin-top: 2px;">{{ habit.description }}</p>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="habit-name">{{ habit.name }}</span>
+                <span style="font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 6px;" :style="{ background: habit.type === 'negativo' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)', color: habit.type === 'negativo' ? '#ef4444' : '#10b981' }">
+                  {{ habit.type === 'negativo' ? 'Evitar' : 'Meta' }}
+                </span>
+              </div>
+              
+              <p class="text-secondary" style="font-size: 11px; margin-top: 2px;">
+                Progresso: {{ store.getHabitProgress(habit, store.selectedDate) }} / {{ habit.target || 1 }} {{ habit.unit || 'vezes' }}
+              </p>
+
               <span class="habit-streak" v-if="habit.streak > 0" style="margin-top: 4px;">
-                <LucideIcon name="Sparkles" /> {{ habit.streak }} {{ habit.streak === 1 ? 'dia seguido' : 'dias seguidos' }}
+                🔥 {{ habit.streak }} {{ habit.streak === 1 ? 'dia seguido' : 'dias seguidos' }}
               </span>
             </div>
           </div>
-          <button class="habit-check-btn" @click="store.toggleHabit(habit.id)">
+          <button class="habit-check-btn" @click="store.toggleHabit(habit.id, store.selectedDate)">
             <LucideIcon name="Check" size="16" />
           </button>
         </div>
@@ -108,7 +125,7 @@ const formatSelectedDateText = computed(() => {
       <div v-else class="glass-card" style="text-align: center; padding: 48px 24px; color: var(--text-secondary);">
         <LucideIcon name="Dumbbell" size="48" style="margin: 0 auto 16px auto; color: var(--text-muted); opacity: 0.6;" />
         <h3 style="color: var(--text-primary); margin-bottom: 8px;">Nenhum hábito cadastrado</h3>
-        <p style="font-size: 13px; line-height: 1.4; margin-bottom: 20px;">Adicione hábitos diários para começar a rastrear sua consistência e analisar seu humor.</p>
+        <p style="font-size: 13px; line-height: 1.4; margin-bottom: 20px;">Adicione hábitos diários para começar a rastrear sua consistência e jogar o Tinder de Metas.</p>
         <button class="btn-primary" style="padding: 10px 24px;" @click="store.showAddHabitModal = true">
           Cadastrar Hábito
         </button>

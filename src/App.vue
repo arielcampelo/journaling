@@ -5,6 +5,7 @@ import DashboardView from './components/DashboardView.vue'
 import HabitsView from './components/HabitsView.vue'
 import JournalView from './components/JournalView.vue'
 import InsightsView from './components/InsightsView.vue'
+import SwipeGameView from './components/SwipeGameView.vue'
 import AddHabitModal from './components/AddHabitModal.vue'
 import AddEntryModal from './components/AddEntryModal.vue'
 import LucideIcon from './components/LucideIcon.vue'
@@ -43,7 +44,6 @@ onUnmounted(() => {
       <div class="status-bar">
         <span class="status-time">{{ timeString }}</span>
         <div class="status-icons">
-          <!-- Custom SVGs for wifi, cellular signal and battery -->
           <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor">
             <path d="M2 3a7 7 0 0 1 13 0c.3.5.1 1.1-.4 1.4s-1.1.1-1.4-.4a5 5 0 0 0-9.2 0c-.3.5-.9.7-1.4.4S1.7 3.5 2 3zm2.5 3a4 4 0 0 1 8 0c.2.5 0 1.1-.5 1.3s-1.1 0-1.3-.5a2 2 0 0 0-4.4 0c-.2.5-.8.7-1.3.5s-.7-.8-.5-1.3zm2.3 2.8a1.5 1.5 0 0 1 3.4 0c.2.5-.1 1.1-.6 1.2a1 1 0 0 1-1.1-1.2h-.1c-.1.5-.7.8-1.2.6a1 1 0 0 1-.4-.6z"/>
           </svg>
@@ -66,6 +66,7 @@ onUnmounted(() => {
       <main class="app-content">
         <Transition name="fade" mode="out-in">
           <DashboardView v-if="store.activeTab === 'dashboard'" />
+          <SwipeGameView v-else-if="store.activeTab === 'game'" />
           <HabitsView v-else-if="store.activeTab === 'habits'" />
           <JournalView v-else-if="store.activeTab === 'journal'" />
           <InsightsView v-else-if="store.activeTab === 'insights'" />
@@ -80,6 +81,12 @@ onUnmounted(() => {
           <span>Início</span>
         </button>
         
+        <button :class="['nav-item', { active: store.activeTab === 'game' }]" 
+                @click="store.setTab('game')">
+          <LucideIcon name="Sparkles" />
+          <span>Modo Jogo</span>
+        </button>
+
         <button :class="['nav-item', { active: store.activeTab === 'habits' }]" 
                 @click="store.setTab('habits')">
           <LucideIcon name="Calendar" />
@@ -90,12 +97,6 @@ onUnmounted(() => {
                 @click="store.setTab('journal')">
           <LucideIcon name="BookOpen" />
           <span>Diário</span>
-        </button>
-        
-        <button :class="['nav-item', { active: store.activeTab === 'insights' }]" 
-                @click="store.setTab('insights')">
-          <LucideIcon name="Sparkles" />
-          <span>Insights</span>
         </button>
       </nav>
     </div>

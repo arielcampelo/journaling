@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "exportedAt": "2026-09-08T15:38:00.000Z",
+  "user": {
+    "name": "Ariel Morais"
+  },
+  "habits": [
+    {
+      "id": "h_cigarro",
+      "name": "🚬 Reduzir Cigarro",
+      "description": "Meta máxima de 4 cigarros no dia",
+      "prompt": "Fumei 1 cigarro desde a última vez?",
+      "unit": "cigarros",
+      "target": 4,
+      "step": 1,
+      "type": "negativo",
+      "frequency": "diaria",
+      "icon": "Droplet",
+      "color": "#ef4444",
+      "history": [],
+      "progressMap": {},
+      "streak": 0
+    },
+    {
+      "id": "h_agua",
+      "name": "💧 Beber Água (2,1L)",
+      "description": "Meta de 2100ml em copos de 300ml",
+      "prompt": "Bebi +300ml de água agora?",
+      "unit": "ml",
+      "target": 2100,
+      "step": 300,
+      "type": "positivo",
+      "frequency": "diaria",
+      "icon": "Droplet",
+      "color": "#06b6d4",
+      "history": ["2026-09-08"],
+      "progressMap": { "2026-09-08": 600 },
+      "streak": 1
+    },
+    {
+      "id": "h_plantas",
+      "name": "🌿 Avaliar & Regar Plantas",
+      "description": "Verificar umidade/temp e regar (2x/dia com intervalo)",
+      "prompt": "Avaliei umidade/temp e/ou reguei as plantas agora?",
+      "unit": "checagens",
+      "target": 2,
+      "step": 1,
+      "type": "positivo",
+      "frequency": "diaria",
+      "minIntervalHours": 4,
+      "lastWateredDate": "2026-09-08",
+      "icon": "Apple",
+      "color": "#10b981",
+      "history": ["2026-09-08"],
+      "progressMap": { "2026-09-08": 1 },
+      "streak": 1
+    },
+    {
+      "id": "h_alimentacao",
+      "name": "🥗 Alimentação Equilibrada",
+      "description": "Fazer as 3 refeições principais como gostaria",
+      "prompt": "Fiz uma refeição saudável e equilibrada agora?",
+      "unit": "refeições",
+      "target": 3,
+      "step": 1,
+      "type": "positivo",
+      "frequency": "diaria",
+      "icon": "Apple",
+      "color": "#f59e0b",
+      "history": ["2026-09-08"],
+      "progressMap": { "2026-09-08": 1 },
+      "streak": 1
+    },
+    {
+      "id": "h_1",
+      "name": "🎸 Tocar Guitarra/Baixo",
+      "description": "Prática de instrumento & desestresse diário",
+      "prompt": "Toquei 15 min de guitarra/baixo?",
+      "unit": "minutos",
+      "target": 15,
+      "step": 15,
+      "type": "positivo",
+      "frequency": "diaria",
+      "icon": "Coffee",
+      "color": "#ec4899",
+      "history": ["2026-09-08"],
+      "progressMap": { "2026-09-08": 15 },
+      "streak": 1
+    }
+  ],
+  "entries": [
+    {
+      "id": "e_1",
+      "date": "2026-09-08T12:00:00.000Z",
+      "mood": "calm",
+      "category": "reflexao",
+      "content": "Cadastrados os novos hábitos customizados de cigarro (max 4), água (2,1L), rega de plantas e refeições.",
+      "tags": ["habitos", "saude", "rotina"]
+    }
+  ]
+}

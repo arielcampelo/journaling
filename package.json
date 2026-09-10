@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync": "node scripts/sync_antigravity.js"
   },
   "dependencies": {
     "@lucide/vue": "^1.28.0",
