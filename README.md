@@ -1,83 +1,53 @@
-# MindFlow 🧘⚡
+# 🧘 MindFlow — Mobile-First Journaling & Habit Tracker PWA
 
-O **MindFlow** é um web-app mobile-first focado no registro diário de pensamentos, controle de hábitos e insights comportamentais. Com um sistema de design premium baseado em *Glassmorphism* e uma paleta de cores pasteis em tons de **Ameixa (Plum)** e **Menta (Mint)**, ele oferece uma experiência visual limpa, fluida e relaxante.
+[![Vue.js 3](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=flat-square&logo=vuedotjs)](https://vuejs.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
+[![PWA Ready](https://img.shields.io/badge/PWA-Mobile--First-10b981?style=flat-square)](https://vite-pwa-org.netlify.app/)
+[![Design System](https://img.shields.io/badge/UI-Glassmorphism-c084fc?style=flat-square)](#)
 
-O aplicativo é 100% responsivo para dispositivos móveis, podendo ser instalado diretamente na tela inicial do celular como um aplicativo de sistema (PWA).
-
----
-
-## 🌟 Principais Funcionalidades
-
-1. **Diário de Pensamentos Granular**:
-   * Registro diário de pensamentos e reflexões livres com suporte a `#tags`.
-   * **Controle de Humor Multidimensional**: Em vez de selecionar apenas uma emoção, avalie a intensidade de 6 emoções fundamentais (Feliz, Calmo, Produtivo, Ansioso, Cansado, Triste) em uma escala de 0 a 10 usando controles deslizantes (sliders).
-2. **Rastreador de Hábitos (Habit Tracker)**:
-   * Cadastro de hábitos personalizados com cores e ícones dedicados.
-   * Calendário horizontal de progresso rápido para marcar a conclusão.
-   * Cálculo de sequências ativa (*streak* de dias seguidos).
-3. **Métricas & Insights**:
-   * Gráfico visual de flutuação semanal de humor predominante.
-   * Análise estatística de correlação automática indicando qual hábito mais melhora o seu estado emocional.
-4. **Painel de Controle Minimalista**:
-   * Tela inicial limpa com data formatada e acesso rápido por abas.
-   * Resumo de consistência dos últimos 10 dias (taxa de conclusão, humor mais frequente, notas salvas e maior streak).
-5. **Persistência de Dados**:
-   * Todos os dados são salvos local e com segurança no `LocalStorage` do próprio aparelho, sem necessidade de logins complexos ou servidores externos de banco de dados.
+**MindFlow** is a zero-friction, mobile-first Progressive Web Application (PWA) designed for micro-journaling, quantitative habit tracking, and behavioral analytics. Featuring a **Tinder-style Swipe Game** mode for instant habit check-ins and a 1-minute decompression timer, MindFlow provides a fluid, ambient, and relaxing user experience.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+### 🌟 Key Features
 
-* **Framework**: [Vue 3](https://vuejs.org/) (Composition API)
-* **Gerenciador de Build**: [Vite](https://vite.dev/)
-* **Biblioteca de Ícones**: [Lucide Vue Next](https://lucide.dev/)
-* **Estilização**: Vanilla CSS com variáveis dinâmicas e design system com efeito de vidro (*glassmorphism*).
-* **Deploy**: [Vercel](https://vercel.com/)
+- 🎴 **Tinder-Style Swipe Game Mode:** Fast 1-touch habit completion interface (Swipe Right = Done, Swipe Left = Skip) for rapid daily check-ins.
+- ⏱️ **1-Minute Micro-Journaling Timer:** Decompression timer for quick daily thoughts without cognitive overload.
+- 📊 **Multidimensional Mood & Behavioral Analytics:** Track intensity across 6 core emotional states (Happy, Calm, Productive, Anxious, Tired, Sad) with automated correlation metrics between habits and moods.
+- 📱 **Mobile-First PWA:** Service Worker caching allows instant standalone installation on mobile home screens.
+- 🔒 **Privacy-First Local Storage:** All entries are stored locally inside the browser memory.
 
 ---
 
-## 🚀 Como Executar o Projeto Localmente
+### 🛠️ Tech Stack
 
-### Pré-requisitos
-* Ter o [Node.js](https://nodejs.org/) instalado em sua máquina.
+* **Framework:** Vue 3 (Composition API)
+* **Build Tool:** Vite & `@vite-pwa/plugin`
+* **Icons & UI:** Lucide Icons & Custom Glassmorphism CSS Tokens
+* **Analytics Engine:** Custom JS Habit-Mood Correlation & Streak Counters
 
-### Instalação
-1. Clone o seu repositório Git:
-   ```bash
-   git clone <URL_DO_SEU_REPOSITORIO>
-   cd journaling
-   ```
-2. Instale as dependências do projeto:
-   ```bash
-   npm install
-   ```
+---
 
-### Executando em Desenvolvimento
-1. Inicie o servidor local:
-   ```bash
-   npm run dev
-   ```
-2. Abra no seu navegador o endereço indicado (geralmente `http://localhost:5173/`).
+### 🚀 Quick Start
 
-### Testando no Celular (Rede Local)
-Para abrir o aplicativo no seu telefone físico pela rede Wi-Fi da sua casa:
 ```bash
-npm run dev -- --host
-```
-Depois, acesse no navegador do celular a URL listada em `Network` (ex: `http://192.168.1.XX:5173`).
+# Clone repository
+git clone https://github.com/arielcampelo/journaling.git
+cd journaling
 
----
+# Install dependencies
+npm install
 
-## 📦 Compilação e Deploy (Produção)
-
-### Build
-Para gerar a pasta estática otimizada de produção (`dist/`):
-```bash
-npm run build
+# Run dev server
+npm run dev
 ```
 
-### Publicar na Vercel
-Para atualizar a versão de produção na nuvem diretamente pelo terminal:
-```bash
-npx vercel --prod
-```
+---
+
+### 👤 Author
+
+**Ariel Campêlo Viana Morais**  
+B.Sc. in Mathematics (USP) • AI Researcher (ITS) • Backend Engineer (Pirus)  
+- 🔗 **LinkedIn:** [ariel-campelo](https://www.linkedin.com/in/ariel-campelo-0909b4231/)
+- 💻 **GitHub:** [@arielcampelo](https://github.com/arielcampelo)
+- 📄 **Lattes:** [Curriculum Lattes](http://lattes.cnpq.br/9440452184167715)
